@@ -197,8 +197,8 @@ const insertNewTransactionDetail = (txnId, itemId) => {
 	return new Promise((resolve, reject) => {
 		pool.query(
 			`insert into "TRANSACTION_DETAIL"
-			("ID_TRANSACTION","CREATED","QUANTITY","ID_ITEM") values
-			(${txnId},current_timestamp,1,${itemId})`,
+			("ID_TRANSACTION","QUANTITY","ID_ITEM") values
+			(${txnId},1,${itemId})`,
 			(error, results) => {
 				if(error) {
 					console.log(error)
