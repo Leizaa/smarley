@@ -1,16 +1,16 @@
 const express = require('express');
 const app = express();
 const proc = require('./process');
-const port = 6969;
+const port = process.env.PORT || 6969;
 const cors = require('cors');
 
 app.use(express.json());
-// app.all('/', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   next();
-//  });
-// app.set('json spacer', 2);
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
+app.set('json spacer', 2);
 
 app.get('/dummy', (req, res) => {
 	console.log('hit dummy');
