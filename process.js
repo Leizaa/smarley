@@ -1,12 +1,11 @@
 const Pool = require('pg').Pool;
 const pool = new Pool({
-	user: 'postgres',
-	host: 'localhost',
-  	database: 'Smarley',
-  	password: 'lollipop99',
-  	port: 3000,
+	user: 'erulhswwrfoqcv',
+	host: 'ec2-3-211-48-92.compute-1.amazonaws.com',
+  	database: 'd2vf832boemnrp',
+  	password: 'b9164f01862a74e06a4776afd82f4c9eaca6bc6463d12190742509627b13701b',
+  	port: 5432,
 });
-
 
 const getTransactionID = (req) => {
 	cartId = req.body.cartId;
