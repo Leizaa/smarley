@@ -12,6 +12,11 @@ app.all('/', function(req, res, next) {
  });
 app.set('json spacer', 2);
 
+app.get('/dummy', (req, res) => {
+	console.log('hit dummy');
+	res.json(staus:"ok");
+})
+
 app.post('/getTransactionID',(req, res) => {	
 	console.log('Hit getTransactionID! The request is');
 	console.log(req.body);
