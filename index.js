@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const proc = require('./process');
+// const proc = require('./process');
 const port = 6969;
 const cors = require('cors');
 
@@ -10,7 +10,7 @@ app.all('/', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
  });
-app.set('json spacer', 2);
+// app.set('json spacer', 2);
 
 app.get('/dummy', (req, res) => {
 	console.log('hit dummy');
