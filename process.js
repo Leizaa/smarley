@@ -7,6 +7,12 @@ const pool = new Pool({
   	port: 5432,
 });
 
+// user: 'postgres',
+// 	host: 'localhost',
+//   	database: 'Smarley',
+//   	password: 'lollipop99',
+//   	port: 3000,
+
 const getTransactionID = (req) => {
 	cartId = req.body.cartId;
 	return selectTxnIdByCartId(cartId);
@@ -171,13 +177,14 @@ const getTransactionStatus = (req) => {
 const closeTransaction = (req) => {
 	txnId = req.body.txnId;
 	grandPrice = req.body.grandPrice;
-	closeStatus = req.body.closeStatus;
+	closeStatus = req.body.closeStatus + "";
+	console.log(closeStatus);
 	return new Promise((resolve, reject) => {
 		pool.query(
 			`update "TRANSACTION" 
 			set 
 				"AMOUNT" = ${grandPrice}, 
-				"CLOSE_STATUS" = ${closeStatus}::character varying,
+				"CLOSE_STATUS" = '${closeStatus}',
 				"IS_OPEN" = false
 			where "ID_TRANSACTION" = ${txnId}`,
 			(error, results) => {
