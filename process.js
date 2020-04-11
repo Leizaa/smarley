@@ -148,7 +148,7 @@ const getTransactionDetailFromTransacionID = (req) => {
 const getTransactionStatus = (req) => {
 	txnId = req.body.txnId;
 	return new Promise((resolve, reject) => {
-		pool.query (`select "IS_OPEN"
+		pool.query (`select "CLOSE_STATUS"
 					from "TRANSACTION"
 					where "ID_TRANSACTION" = ${txnId}`,
 					(error, results) => {
@@ -157,12 +157,8 @@ const getTransactionStatus = (req) => {
 						}
 
 						if (results.rows.length > 0) {
-							isOpen = results.rows[0].IS_OPEN
-							if (isOpen == "FALSE") {
-								output = {"status":"closed"}
-							} else {
-								output = {"status":"open"}
-							}
+							closeStatus = results.rows[0].CLOSE_STATUS
+							output = {"status":closeStatus}
 						} else {
 							output = {"status":"unknown"}
 						}
@@ -175,11 +171,13 @@ const getTransactionStatus = (req) => {
 const closeTransaction = (req) => {
 	txnId = req.body.txnId;
 	grandPrice = req.body.grandPrice;
+	closeStatus = req.body.closeStatus;
 	return new Promise((resolve, reject) => {
 		pool.query(
 			`update "TRANSACTION" 
 			set 
 				"AMOUNT" = ${grandPrice}, 
+				"CLOSE_STATUS" = ${closeStatus},
 				"IS_OPEN" = false
 			where "ID_TRANSACTION" = ${txnId}`,
 			(error, results) => {
