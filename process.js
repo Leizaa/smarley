@@ -177,14 +177,14 @@ const closeTransaction = (req) => {
 			`update "TRANSACTION" 
 			set 
 				"AMOUNT" = ${grandPrice}, 
-				"CLOSE_STATUS" = ${closeStatus},
+				"CLOSE_STATUS" = ${closeStatus}::character varying,
 				"IS_OPEN" = false
 			where "ID_TRANSACTION" = ${txnId}`,
 			(error, results) => {
 				if (error) {
 					console.log(error)
 				}
-				output = {statis:"ok"}
+				output = {status:"ok"}
 				resolve(output);
 			})
 	})
