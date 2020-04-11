@@ -28,9 +28,9 @@ const selectTxnIdByCartId = (cartId) => {
 
 				if (results.rows.length > 0) {
 					txnId = results.rows[0].ID_TRANSACTION;
-					output = {"STATUS":"ok","ID_TRANSACTION":txnId, "flag":"01"};
+					output = {"status":"ok","txnId":txnId, "flag":"01"};
 				} else {
-					output = {"STATUS":"failed"};
+					output = {"status":"failed"};
 				} 
 				resolve(output);
 			})
