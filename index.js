@@ -109,4 +109,16 @@ app.post('/getTransactionStatus',(req, res) => {
 
 });
 
+app.post('/cancelCheckout',(req, res) => {
+	console.log('Hit cancelCheckout! The request is');
+	console.log(req.body);
+
+	proc.cancelCheckout(req).then((result) => {
+		res.json(result);
+	}).catch((error) => {
+		console.log(error)
+	})
+
+});
+
 app.listen(port, () => console.log(`Server up listening at port ${port}!`));

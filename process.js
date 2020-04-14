@@ -321,6 +321,23 @@ const isDetailExist = (result) => {
 	return result.QUANTITY != null
 }
 
+const cancelCheckout = (req) => {
+	txnId = req.body.txnId
+	return new Promise((resolve, reject) => {
+		pool.query(
+			`update "TRANSACTION" set "IS_CHECKOUT" = false where "ID_TRANSACTION" = ${txnId}`,
+			(error, results) => {
+				if (error) {
+					console.log(error)
+					output = {"status":"failed"}
+				} else {
+					output = {"status":"ok"}
+				}
+				resolve(output)
+			})
+	})
+}
+
 module.exports = {getTransactionID, createNewTxnID, getTransactionDetailFromTransacionID, 
 	getTransactionOTP, getTransactionDetailFromOTP, closeTransaction, manipulateTransactionData,
-	insertNewTransactionDetail, getTransactionStatus};
+	insertNewTransactionDetail, getTransactionStatus, cancelCheckout};
