@@ -154,9 +154,20 @@ const getTransactionDetailFromTransacionID = (req) => {
 const getTransactionStatus = (req) => {
 	txnId = req.body.txnId;
 	return new Promise((resolve, reject) => {
-		pool.query (`select "CLOSE_STATUS"
-					from "TRANSACTION"
-					where "ID_TRANSACTION" = ${txnId}`,
+		pool.query (
+			`select sum("SUBPRICE") as "SUBTOTAL", base."CLOSE_STATUS" 
+			 from (
+				select 
+					td."QUANTITY" * it."BASE_PRICE" as "SUBPRICE",
+					t."CLOSE_STATUS" 
+				from 
+					"TRANSACTION_DETAIL" td 
+						join "ITEM" it 
+						on td."ID_ITEM" = it."ID_ITEM"
+						join "TRANSACTION" t
+						on td."ID_TRANSACTION" = t."ID_TRANSACTION" 
+				where t."ID_TRANSACTION" = ${txnId}) as base
+			 group by "CLOSE_STATUS"`,
 					(error, results) => {
 						if (error) {
 							console.log(error)
