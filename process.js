@@ -175,7 +175,11 @@ const getTransactionStatus = (req) => {
 
 						if (results.rows.length > 0) {
 							closeStatus = results.rows[0].CLOSE_STATUS
-							output = {"status":closeStatus}
+							subtotal = results.rows[0].SUBTOTAL
+							if (closeStatus == null || closeStatus == "") {
+								closeStatus = "open"
+							}
+							output = {"status":closeStatus, "subtotal":subtotal}
 						} else {
 							output = {"status":"unknown"}
 						}
