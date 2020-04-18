@@ -300,7 +300,6 @@ const manipulateTransactionData = (req) => {
 				quantity++
 				return updateTransactionDetailQuantity(itemId, txnId, quantity)
 			} else {
-				txnId = result.ID_TRANSACTION
 				console.log(result)
 				console.log("txnId: " + txnId + " " + itemId)
 				return insertNewTransactionDetail(txnId, itemId)
