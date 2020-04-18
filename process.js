@@ -340,12 +340,13 @@ const cancelCheckout = (req) => {
 	txnId = req.body.txnId
 	return new Promise((resolve, reject) => {
 		pool.query(
-			`update "TRANSACTION" set "IS_CHECKOUT" = false where "ID_TRANSACTION" = ${txnId}`,
+			`update "TRANSACTION" set "IS_CHECKOUT" = false where "ID_TRANSACTION" = ${txnId} returning "IS_CHECKOUT"`,
 			(error, results) => {
 				if (error) {
 					console.log(error)
 					output = {"status":"failed"}
 				} else {
+					console.log(results.rows[0])
 					output = {"status":"ok"}
 				}
 				resolve(output)
