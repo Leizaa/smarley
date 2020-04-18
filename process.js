@@ -293,6 +293,7 @@ const manipulateTransactionData = (req) => {
 
 		return selectTransactionDetail(itemId, cartId)
 		.then((result) => {
+			console.log(result)
 			txnId = result.txnId
 			if (isDetailExist(result)) {
 				quantity = result.QUANTITY
