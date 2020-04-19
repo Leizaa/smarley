@@ -346,7 +346,7 @@ const cancelCheckout = (req) => {
 					console.log(error)
 					output = {"status":"failed"}
 				} else {
-					console.log(results.rows[0])
+					console.log(results.rows[0].IS_CHECKOUT)
 					output = {"status":"ok"}
 				}
 				resolve(output)
