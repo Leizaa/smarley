@@ -181,7 +181,7 @@ const getTransactionStatus = (req) => {
 							}
 							output = {"status":closeStatus, "subtotal":subtotal}
 						} else {
-							output = {"status":"unknown"}
+							output = {"status":"cancel"}
 						}
 						resolve(output)
 					}
@@ -294,7 +294,13 @@ const manipulateTransactionData = (req) => {
 		return selectTransactionDetail(itemId, cartId)
 		.then((result) => {
 			console.log(result)
-			txnId = result.txnId
+
+			if (result.txnId != null) {
+				txnId = result.txnId
+			} else {
+				return output = {"status":"failed"}
+			}
+
 			if (isDetailExist(result)) {
 				quantity = result.QUANTITY
 				quantity++
