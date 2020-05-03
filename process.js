@@ -134,7 +134,7 @@ const getTransactionDetailFromTransacionID = (req) => {
 		pool.query(
 			`select i."BASE_PRICE", i."ITEM_DESC", td.*
 			from "TRANSACTION_DETAIL" td join "ITEM" i on td."ID_ITEM" = i."ID_ITEM" 
-			where "ID_TRANSACTION" = ${txnId}`,
+			where "ID_TRANSACTION" = ${txnId} order by "ID_TRANSACTION_DETAIL" asc`,
 			(error, results) => {
 				if (error) {
 					console.log(error)
